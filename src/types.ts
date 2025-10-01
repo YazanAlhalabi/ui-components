@@ -1,9 +1,8 @@
-export type Product = {
-  id: number
-  productName: string
-  category: string
-  price: number
-  inStock: number
-  status: string
-  lastRestock: string
+export type TableData = {
+  id: string
+  headers: string[]
+  cells: string[]
+  details: string
 }
+
+export type Viewport = "mobile" | "tablet" | "desktop"

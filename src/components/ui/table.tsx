@@ -1,28 +1,26 @@
-import type { ReactNode } from "react"
 import React from "react"
 
-//TODO: add dynamic classNames
+import { cn } from "../../lib/utils"
+
 export function Table({
   children,
+  className,
   ...props
-}: React.HTMLAttributes<HTMLTableElement> & {
-  children: ReactNode
-}) {
+}: React.HTMLAttributes<HTMLTableElement>) {
   return (
-    <div className='w-full overflow-auto rounded-md border'>
-      <table className='w-full border-collapse text-sm' {...props}>
-        {children}
-      </table>
-    </div>
+    <table className={cn(className)} {...props}>
+      {children}
+    </table>
   )
 }
 
 export function TableHeader({
   children,
+  className,
   ...props
-}: React.ThHTMLAttributes<HTMLTableSectionElement> & { children: ReactNode }) {
+}: React.HTMLAttributes<HTMLTableSectionElement>) {
   return (
-    <thead className='bg-gray-50 border-b' {...props}>
+    <thead className={cn(className)} {...props}>
       {children}
     </thead>
   )
@@ -30,21 +28,23 @@ export function TableHeader({
 
 export function TableBody({
   children,
+  className,
   ...props
-}: React.HTMLAttributes<HTMLTableSectionElement> & { children: ReactNode }) {
-  return <tbody {...props}>{children}</tbody>
+}: React.HTMLAttributes<HTMLTableSectionElement>) {
+  return (
+    <tbody className={cn(className)} {...props}>
+      {children}
+    </tbody>
+  )
 }
 
-//TODO: add a11y & custom styling
 export function TableRow({
   children,
+  className,
   ...props
-}: React.HTMLAttributes<HTMLTableRowElement> & { children: ReactNode }) {
+}: React.HTMLAttributes<HTMLTableRowElement>) {
   return (
-    <tr
-      {...props}
-      className='cursor-pointer hover:bg-gray-50 select-none focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50'
-    >
+    <tr className={cn(className)} {...props}>
       {children}
     </tr>
   )
@@ -52,10 +52,11 @@ export function TableRow({
 
 export function TableCell({
   children,
+  className,
   ...props
-}: React.TdHTMLAttributes<HTMLTableCellElement> & { children: ReactNode }) {
+}: React.TdHTMLAttributes<HTMLTableCellElement>) {
   return (
-    <td {...props} className='p-2'>
+    <td className={cn(className)} {...props}>
       {children}
     </td>
   )
