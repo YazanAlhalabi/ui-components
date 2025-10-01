@@ -3,7 +3,7 @@ import { Fragment, useEffect, useState } from "react"
 import { Table, TableBody, TableHeader, TableRow } from "../ui/table"
 import { ResponsiveTableRow } from "./responsive-table-row"
 import { DesktopTableRow } from "./desktop-table-row"
-import { getViewport } from "../../lib/utils"
+import { cn, getViewport } from "../../lib/utils"
 import type { TableData } from "../../types"
 import { headers, tableData } from "../../mock-data"
 
@@ -35,7 +35,7 @@ export function ExpandableTable() {
   const isDesktop = viewport === "desktop"
 
   return (
-    <div className='p-8 font-sans min-h-screen'>
+    <div className='p-2 min-h-screen'>
       <main aria-label='Data table section'>
         <Table
           className='w-full'
@@ -57,9 +57,12 @@ export function ExpandableTable() {
                     <th
                       key={header}
                       scope='col'
-                      className={`p-2 px-4 text-left text-sm font-normal text-black cursor-pointer  hover:bg-gray-300  bg-gray-200 ${
-                        isLast ? "rounded-r-lg" : ""
-                      }`}
+                      className={cn(
+                        "p-2 px-4 text-left text-sm font-normal text-black cursor-pointer  hover:bg-gray-300  bg-gray-200",
+                        {
+                          "rounded-r-lg": isLast,
+                        }
+                      )}
                     >
                       {header}
                     </th>
