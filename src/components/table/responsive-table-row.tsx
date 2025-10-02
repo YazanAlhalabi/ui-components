@@ -1,3 +1,4 @@
+import type { KeyboardEvent } from "react"
 import { ChevronDown, ChevronRight } from "lucide-react"
 
 import type { TableData } from "../../types"
@@ -23,7 +24,7 @@ export function ResponsiveTableRow({
   onBlur,
   onMouseDown,
 }: TableProps) {
-  const handleKeyDown = (e: React.KeyboardEvent) => {
+  const handleKeyDown = (e: KeyboardEvent) => {
     if (e.key === "Enter") {
       e.preventDefault()
       onToggle(data.id)
@@ -37,54 +38,49 @@ export function ResponsiveTableRow({
           showKeyboardFocus,
       })}
     >
-      <TableRow className='block'>
+      <TableRow
+        role='button'
+        tabIndex={0}
+        aria-expanded={isExpanded}
+        aria-controls={`row-${data.id}-details`}
+        onClick={() => onToggle(data.id)}
+        onKeyDown={handleKeyDown}
+        onFocus={() => onFocus(data.id)}
+        onBlur={() => onBlur(null)}
+        onMouseDown={() => onMouseDown(null)}
+        className={cn(
+          "block hover:bg-gray-50 transition-colors border border-gray-300 rounded-lg cursor-pointer outline-none",
+          {
+            "rounded-b-none border-b-0": isExpanded,
+          }
+        )}
+      >
         <TableCell className='block p-0' colSpan={data.headers.length}>
-          <div
-            role='button'
-            tabIndex={0}
-            aria-expanded={isExpanded}
-            aria-controls={`row-${data.id}-details`}
-            onClick={() => onToggle(data.id)}
-            onKeyDown={handleKeyDown}
-            onFocus={() => onFocus(data.id)}
-            onBlur={() => onBlur(null)}
-            onMouseDown={() => onMouseDown(null)}
-            className={cn(
-              "bg-white hover:bg-gray-50 transition-colors border border-gray-300 rounded-lg cursor-pointer outline-none",
-              {
-                "rounded-b-none border-b-0": isExpanded,
-              }
-            )}
-          >
-            <div className='flex items-center gap-2 p-4'>
-              <span aria-hidden='true' className='flex-shrink-0'>
-                {isExpanded ? (
-                  <ChevronDown size={16} />
-                ) : (
-                  <ChevronRight size={16} />
-                )}
-              </span>
-              <div className='w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3'>
-                {data.cells.map((cell, cellIndex) => (
+          <div className='flex items-center gap-2 p-4'>
+            <span aria-hidden='true' className='flex-shrink-0'>
+              {isExpanded ? (
+                <ChevronDown size={16} />
+              ) : (
+                <ChevronRight size={16} />
+              )}
+            </span>
+            <div className='w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3'>
+              {data.cells.map((cell, cellIndex) => (
+                <div key={`${data.id}-cell-${cellIndex}`} className='px-4 py-3'>
                   <div
-                    key={`${data.id}-cell-${cellIndex}`}
-                    className='px-4 py-3'
+                    id={`${data.id}-header-${cellIndex}`}
+                    className='text-xs uppercase text-gray-500 mb-1 tracking-wide'
                   >
-                    <div
-                      id={`${data.id}-header-${cellIndex}`}
-                      className='text-xs uppercase text-gray-500 mb-1 tracking-wide'
-                    >
-                      {data.headers[cellIndex]}
-                    </div>
-                    <div
-                      className='text-sm text-black'
-                      aria-labelledby={`${data.id}-header-${cellIndex}`}
-                    >
-                      {cell}
-                    </div>
+                    {data.headers[cellIndex]}
                   </div>
-                ))}
-              </div>
+                  <div
+                    className='text-sm text-black'
+                    aria-labelledby={`${data.id}-header-${cellIndex}`}
+                  >
+                    {cell}
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         </TableCell>
@@ -94,7 +90,7 @@ export function ResponsiveTableRow({
           <TableCell
             id={`row-${data.id}-details`}
             colSpan={data.headers.length}
-            className='block p-0 text-sm bg-white border border-gray-300 border-t rounded-b-lg'
+            className='block p-0 text-sm border border-gray-300 border-t rounded-b-lg'
             role='region'
             aria-label={`Details for ${data.cells[0]}`}
             aria-live='polite'

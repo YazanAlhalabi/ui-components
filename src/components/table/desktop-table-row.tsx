@@ -1,3 +1,4 @@
+import type { KeyboardEvent } from "react"
 import { ChevronDown, ChevronRight } from "lucide-react"
 
 import type { TableData } from "../../types"
@@ -23,7 +24,7 @@ export function DesktopTableRow({
   onBlur,
   onMouseDown,
 }: TableProps) {
-  const handleKeyDown = (e: React.KeyboardEvent) => {
+  const handleKeyDown = (e: KeyboardEvent) => {
     if (e.key === "Enter") {
       e.preventDefault()
       onToggle(data.id)
@@ -84,11 +85,11 @@ export function DesktopTableRow({
         ))}
       </TableRow>
       {isExpanded && (
-        <TableRow className='bg-white'>
+        <TableRow>
           <TableCell
             id={`row-${data.id}-details`}
             colSpan={data.cells.length + 1}
-            className='p-0 text-sm border border-gray-300 border-t rounded-bl-lg rounded-br-lg bg-white'
+            className='p-0 text-sm border border-gray-300 border-t rounded-bl-lg rounded-br-lg'
             role='region'
             aria-label={`Details for ${data.cells[0]}`}
             aria-live='polite'

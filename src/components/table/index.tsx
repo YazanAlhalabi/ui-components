@@ -38,9 +38,7 @@ export function ExpandableTable() {
     <div className='p-2 min-h-screen'>
       <main aria-label='Data table section'>
         <Table
-          className='w-full'
-          style={{ borderCollapse: "separate", borderSpacing: 0 }}
-          role='table'
+          className='w-full border-separate border-spacing-0'
           aria-label='Expandable data table'
         >
           <caption className='sr-only'>
@@ -58,7 +56,7 @@ export function ExpandableTable() {
                       key={header}
                       scope='col'
                       className={cn(
-                        "p-2 px-4 text-left text-sm font-normal text-black cursor-pointer  hover:bg-gray-300  bg-gray-200",
+                        "p-2 px-4 text-left text-sm font-normal text-black cursor-pointer hover:bg-gray-300 bg-gray-200",
                         {
                           "rounded-r-lg": isLast,
                         }
@@ -93,11 +91,11 @@ export function ExpandableTable() {
                 <ResponsiveTableRow
                   data={row}
                   isExpanded={expandedRows.has(row.id)}
-                  onToggle={() => toggleRow(row.id)}
+                  onToggle={toggleRow}
                   showKeyboardFocus={keyboardFocusRow === row.id}
-                  onFocus={() => setKeyboardFocusRow(row.id)}
-                  onBlur={() => setKeyboardFocusRow(null)}
-                  onMouseDown={() => setKeyboardFocusRow(null)}
+                  onFocus={setKeyboardFocusRow}
+                  onBlur={setKeyboardFocusRow}
+                  onMouseDown={setKeyboardFocusRow}
                 />
               )}
             </Fragment>
