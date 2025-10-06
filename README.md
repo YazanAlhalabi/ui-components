@@ -80,3 +80,4 @@ Some potential improvements to consider:
 - Primitive Components: Not strictly needed for this table, but useful for consistent, reusable components elsewhere.
 - Styling Flexibility: Hardcoded colors and spacing limit adaptability. Integrating a design system or CSS variables would improve maintainability.
 - Testing: Components currently lack automated tests. Adding tests would ensure reliability and confidence for future changes.
+- EDITED After submission: After sleeping on this solution for a week. When I got back to it, I noticed that I did overcomplicate the focus feature. I could have simply made the Table body group clickable and should just work.
